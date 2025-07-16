@@ -1,64 +1,129 @@
-# 💳 Credit Card Spend Analysis & Customer Segmentation
+# Credit Card Spend Segmentation
 
-This project analyzes customer credit card usage patterns and segments users based on their financial behavior. It simulates how a company like American Express might use transaction data to develop targeted marketing strategies, improve customer retention, and minimize risk.
-
----
-
-## 🔍 Project Objective
-
-- Understand how customers use their credit cards: spending patterns, balances, and payments.
-- Segment customers into meaningful groups using unsupervised learning (K-Means).
-- Provide actionable business insights and marketing recommendations for each segment.
-- Build visual dashboards and reports to support data-driven decision-making.
+An Amex-level customer segmentation project using unsupervised learning to group credit card users based on spending behavior. The goal is to identify user personas and derive business strategies tailored to each segment.
 
 ---
 
-## 🧰 Tools & Technologies
+## 📌 Objective
 
-- Python (Pandas, NumPy, Scikit-learn, Seaborn, Matplotlib)
-- Jupyter Notebook (VS Code)
-- Power BI / Tableau (for dashboarding)
-- Unsupervised Learning (K-Means Clustering)
-- PCA, Elbow Method, Silhouette Score
+To segment customers based on transactional behavior to:
 
----
-
-## 📊 Dataset
-
-- Source: [Kaggle – Credit Card Dataset](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata)
-- ~9,000 customers × 18 features
-- Features include balance, purchases, credit limit, payments, and more
-- Preprocessed: missing value imputation, feature scaling (StandardScaler)
+- Design personalized marketing offers
+- Reduce churn and improve credit utilization
+- Optimize credit limit allocation
 
 ---
 
-## 🧠 Segmentation Insights
+## 🧾 Dataset
 
-| Cluster | Description | Action |
-|--------|-------------|--------|
-| 🏦 **High Balance Holders** | Maintain large balances but low transaction frequency | Offer premium financial products |
-| 🛍️ **Frequent Spenders** | Highest purchase frequency and engagement | Loyalty offers, cashback, personalized rewards |
-| 📊 **Balanced Users** | Moderate usage and stable behavior | Monitor for retention and upselling |
-| 😴 **Dormant Users** | Inactive, low purchases | Re-engagement campaigns |
-| 💳 **Revolvers** | Carry balances with low payments | Risk mitigation strategies, EMI offers |
+**Source:** [Kaggle - Credit Card Dataset for Clustering](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata)
+
+**Rows:** 8950
+
+**Columns:**
+
+- BALANCE, PURCHASES, ONEOFF\_PURCHASES, CASH\_ADVANCE
+- CREDIT\_LIMIT, PAYMENTS, MINIMUM\_PAYMENTS
+- PURCHASES\_FREQUENCY, PRC\_FULL\_PAYMENT, TENURE
+
+---
+
+## 🧪 Steps Performed
+
+### 1. **Data Preprocessing**
+
+- Handled missing values (e.g., CREDIT\_LIMIT, MINIMUM\_PAYMENTS)
+- Dropped `CUST_ID` (non-numeric)
+
+### 2. **Feature Engineering**
+
+- `Total_Spend = PURCHASES + CASH_ADVANCE`
+- `Payment_to_MinPay = PAYMENTS / MINIMUM_PAYMENTS`
+- `Balance_Limit_Ratio = BALANCE / CREDIT_LIMIT`
+
+### 3. **Feature Scaling**
+
+Used `StandardScaler` to normalize features
+
+### 4. **Dimensionality Reduction**
+
+PCA was used for visualizing data in 2D space
+
+### 5. **Clustering (KMeans)**
+
+- Elbow method used to select optimal k
+- Final clustering done using `k=4`
+
+### 6. **Cluster Profiling & Visualization**
+
+- Mean values calculated for each cluster
+- Visualizations plotted for: BALANCE, PURCHASES, CREDIT\_LIMIT, etc.
+
+---
+
+## 📊 Cluster Insights
+
+| Cluster | Traits                                           | Suggested Strategy                              |
+| ------- | ------------------------------------------------ | ----------------------------------------------- |
+| **0**   | High balance, high spenders, high limits         | Offer premium rewards, loyalty upgrades         |
+| **1**   | Low spend, minimal transactions, moderate credit | Dormant reactivation via cashback or EMI offers |
+| **2**   | Moderate use, full payers, small purchases       | Upsell mid-tier benefits, encourage more usage  |
+| **3**   | Very low activity, zero balance/usage            | Target for exit or re-engagement campaigns      |
+
+---
+
+## 📁 Folder Structure
+
+```
+credit-card-spend-segmentation/
+├── data/
+├── notebooks/
+│   └── 01_data_analysis.ipynb
+├── scripts/
+│   ├── data_preprocessing.py
+│   ├── feature_engineering.py
+│   └── clustering.py
+├── images/
+│   ├── elbow_curve.png
+│   ├── pca_clusters.png
+│   ├── cluster_BALANCE_boxplot.png
+├── outputs/
+│   └── clustered_customers.csv
+├── README.md
+├── requirements.txt
+└── .gitignore
+```
+
+---
+
+## 🛠️ Technologies Used
+
+- Python, Pandas, NumPy
+- Scikit-learn, Matplotlib, Seaborn
+- Jupyter Notebook
 
 ---
 
 ## 📈 Key Visuals
 
-- Correlation heatmaps to study feature relationships
-- PCA for visualizing high-dimensional clusters
-- Elbow + Silhouette plots for cluster optimization
-- Cluster-wise comparisons of spend, balance, payments
+- Elbow Method (images/elbow\_curve.png)
+- PCA Projection (images/pca\_clusters.png)
+- Clustered Boxplots (e.g. BALANCE, PURCHASES)
 
 ---
 
-## 📊 Dashboard Overview *(in `app/` folder)*
+## ✅ Results
 
-- Customer segmentation summary
-- Interactive filters for cluster-wise drill-down
-- KPIs and trends to support marketing strategy
+- Successfully segmented customers into 4 distinct groups
+- Developed actionable business recommendations
+- All code modularized for production pipeline
 
 ---
 
+## 🔗 Author
+
+**Bikram Singh**\
+Data Analyst | ML Enthusiast | Portfolio Builder
+
+---
 
